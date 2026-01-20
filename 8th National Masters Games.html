@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8th National Masters Games – Sports & Venues</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{
+      --g1: linear-gradient(135deg,#ff512f,#dd2476);
+      --g2: linear-gradient(135deg,#36d1dc,#5b86e5);
+      --g3: linear-gradient(135deg,#11998e,#38ef7d);
+      --g4: linear-gradient(135deg,#f7971e,#ffd200);
+      --g5: linear-gradient(135deg,#7f00ff,#e100ff);
+      --g6: linear-gradient(135deg,#fc5c7d,#6a82fb);
+      --g7: linear-gradient(135deg,#00c6ff,#0072ff);
+    }
+    body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#eef2f7,#fff)}
+
+    /* PRELOADER */
+    #preloader{position:fixed;inset:0;z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#8e0e00,#e52d27);color:#fff}
+    #preloader img{height:150px;margin-bottom:18px}
+    #preloader h2{margin:0;font-size:22px;letter-spacing:.5px}
+
+    /* HEADER */
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(135deg,#8e0e00,#e52d27);color:#fff;position:relative}
+    header img.logo{height:60px}
+    header img.mascot{height:90px}
+    header .title{text-align:center;flex:1}
+    header h1{margin:0;font-size:30px;font-weight:800}
+    .event-highlight{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:#fff;color:#b31217;padding:8px 24px;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.25);white-space:nowrap}
+
+    /* FILTER */
+    .filters{display:flex;gap:10px;justify-content:center;margin:60px 20px 20px;flex-wrap:wrap}
+    .filters button{border:none;padding:10px 18px;border-radius:999px;cursor:pointer;background:#ddd;font-weight:600}
+    .filters button.active{background:#e52d27;color:#fff}
+
+    /* GRID */
+    .icons-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px;max-width:1500px;margin:20px auto;padding:0 24px 50px}
+    .sport{height:190px;border-radius:22px;color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer;transition:.35s;box-shadow:0 18px 40px rgba(0,0,0,.22)}
+    .sport:hover{transform:translateY(-10px) scale(1.04);box-shadow:0 30px 60px rgba(0,0,0,.3)}
+    .sport i{font-size:52px;margin-bottom:14px}
+    .sport span{font-size:17px;font-weight:700;text-align:center}
+    .g1{background:var(--g1)}.g2{background:var(--g2)}.g3{background:var(--g3)}.g4{background:var(--g4)}.g5{background:var(--g5)}.g6{background:var(--g6)}.g7{background:var(--g7)}
+
+    /* POPUP */
+    .popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);justify-content:center;align-items:center;z-index:2000}
+    .popup-box{background:#fff;width:92%;max-width:560px;border-radius:26px;padding:28px;position:relative}
+    .popup-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .popup-header i{font-size:34px;color:#e52d27}
+    .popup-header h2{margin:0;font-size:26px}
+    .detail{display:flex;align-items:flex-start;gap:10px;margin:14px 0;font-size:16px}
+    .detail i{color:#e52d27;margin-top:3px}
+    .actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+    .btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:999px;font-weight:700;text-decoration:none;color:#fff}
+    .btn.map{background:linear-gradient(135deg,#36d1dc,#5b86e5)}
+    .btn.download{background:linear-gradient(135deg,#11998e,#38ef7d)}
+    .close{position:absolute;top:16px;right:20px;font-size:28px;cursor:pointer;color:#aaa}
+  </style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <img src="Mascot.png" alt="Mascot" />
+  <h2>Welcome to National Masters Games</h2>
+</div>
+
+<!-- HEADER -->
+<header>
+  <img src="SMGSF_Logo.png" class="logo" />
+  <div class="title">
+    <h1>8th National Masters Games</h1>
+  </div>
+  <img src="Mascot.png" class="mascot" />
+  <div class="event-highlight">27–31 January 2026 • Pimpri–Chinchwad, Pune</div>
+</header>
+
+<!-- FILTERS -->
+<div class="filters">
+  <button class="active" onclick="filterDay('all',this)">All Days</button>
+  <button onclick="filterDay('28',this)">28 Jan</button>
+  <button onclick="filterDay('29',this)">29 Jan</button>
+  <button onclick="filterDay('30',this)">30 Jan</button>
+  <button onclick="filterDay('31',this)">31 Jan</button>
+</div>
+
+<!-- SPORTS GRID -->
+<div class="icons-grid" id="grid"></div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <span class="close" onclick="closeP()">&times;</span>
+    <div class="popup-header">
+      <i class="fa-solid" id="pi"></i>
+      <h2 id="pt"></h2>
+    </div>
+    <div class="detail"><i class="fa-regular fa-calendar"></i><span id="pd"></span></div>
+    <div class="detail"><i class="fa-solid fa-location-dot"></i><span id="pl"></span></div>
+    <div class="actions">
+      <a class="btn map" id="mapBtn" target="_blank"><i class="fa-solid fa-map"></i> Navigate</a>
+      <a class="btn download" href="Updated PCMC Venues List.pdf" target="_blank"><i class="fa-solid fa-download"></i> Circular</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sports = [
+    {n:'Football',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-futbol',g:'g1'},
+    {n:'Kabaddi',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-people-group',g:'g2'},
+    {n:'Arm Wrestling',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-hand-fist',g:'g3'},
+    {n:'Judo',d:'29–30 Jan 2026',day:['29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-user-ninja',g:'g4'},
+    {n:'Karate',d:'29–30 Jan 2026',day:['29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-hand',g:'g5'},
+    {n:'Dart Game',d:'29–30 Jan 2026',day:['29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-bullseye',g:'g6'},
+    {n:'Weightlifting',d:'28–29 Jan 2026',day:['28','29'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-dumbbell',g:'g7'},
+    {n:'Chess',d:'28–29 Jan 2026',day:['28','29'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-chess',g:'g1'},
+    {n:'Powerlifting',d:'30–31 Jan 2026',day:['30','31'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-dumbbell',g:'g2'},
+    {n:'Basketball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sector-9 Spine, Pimpri-Chinchwad',m:'https://maps.google.com/?q=Sector+9+Spine+Pimpri+Chinchwad',i:'fa-basketball',g:'g3'},
+    {n:'Athletics',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-person-running',g:'g4'},
+    {n:'Tennis',d:'28–29 Jan 2026',day:['28','29'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-table-tennis-paddle-ball',g:'g5'},
+    {n:'Volleyball',d:'28–30 Jan 2026',day:['28','29','30'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-volleyball',g:'g6'},
+    {n:'Yoga',d:'29–30 Jan 2026',day:['29','30'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-person-praying',g:'g7'},
+    {n:'Swimming',d:'28–29 Jan 2026',day:['28','29'],v:'Anna Sahib Magar Stadium, Pimpri',m:'https://maps.google.com/?q=Anna+Sahib+Magar+Stadium+Pimpri',i:'fa-person-swimming',g:'g1'},
+    {n:'Handball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Tanaji Langde Krida Shankul, Kasarwadi',m:'https://maps.google.com/?q=Tanaji+Langde+Krida+Shankul+Kasarwadi',i:'fa-circle-dot',g:'g2'},
+    {n:'Tennis Ball Cricket',d:'29–30 Jan 2026',day:['29','30'],v:'Madanlal Dhingra Cricket Ground, Nigdi',m:'https://maps.google.com/?q=Madanlal+Dhingra+Cricket+Ground+Nigdi',i:'fa-baseball',g:'g3'},
+    {n:'Hockey',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Major Dhyan Chand Hockey Polygrass Ground, Pimpri',m:'https://maps.google.com/?q=Major+Dhyan+Chand+Hockey+Ground+Pimpri',i:'fa-hockey-puck',g:'g4'},
+    {n:'Archery',d:'29–30 Jan 2026',day:['29','30'],v:'PCMC Archery Academy, Chinchwad',m:'https://maps.google.com/?q=Pimpri+Chinchwad+Archery+Academy',i:'fa-bullseye',g:'g5'},
+    {n:'Shooting',d:'29–30 Jan 2026',day:['29','30'],v:'Rifle Shooting Centre, Chikhli',m:'https://maps.google.com/?q=Rifle+Shooting+Centre+Chikhli',i:'fa-crosshairs',g:'g6'},
+    {n:'Table Tennis',d:'28–29 Jan 2026',day:['28','29'],v:'Vedant Sports Academy, Tathawade',m:'https://maps.google.com/?q=Vedant+Sports+Academy+Tathawade',i:'fa-table-tennis-paddle-ball',g:'g7'},
+    {n:'Badminton',d:'28–29 Jan 2026',day:['28','29'],v:'Vedant Sports Academy, Tathawade',m:'https://maps.google.com/?q=Vedant+Sports+Academy+Tathawade',i:'fa-feather',g:'g1'}
+  ];
+
+  const grid = document.getElementById('grid');
+
+  function render(list){
+    if(!grid) return;
+    grid.innerHTML = '';
+    list.forEach((s, i) => {
+      grid.innerHTML += `<div class="sport ${s.g}" onclick="openPByIndex(${i})"><i class="fa-solid ${s.i}"></i><span>${s.n}</span></div>`;
+    });
+  }
+
+  function openPByIndex(i){
+    const s = sports[i];
+    if(!s) return;
+    document.getElementById('pt').innerText = s.n;
+    document.getElementById('pd').innerText = s.d;
+    document.getElementById('pl').innerText = s.v;
+    document.getElementById('pi').className = 'fa-solid ' + s.i;
+    document.getElementById('mapBtn').href = s.m;
+    document.getElementById('popup').style.display = 'flex';
+  }
+
+  function closeP(){ document.getElementById('popup').style.display = 'none'; }
+
+  function filterDay(d, btn){
+    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if(d === 'all') render(sports);
+    else render(sports.filter(s => s.day.includes(d)));
+  }
+
+  function hidePreloader(){
+    const p = document.getElementById('preloader');
+    if(p) p.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    render(sports);
+    setTimeout(hidePreloader, 1200);
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(hidePreloader, 800);
+  });
+
+  setTimeout(hidePreloader, 3000);
+</script>
+
+</body>
+</html>
