@@ -18,16 +18,37 @@
     body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#eef2f7,#fff)}
 
     /* PRELOADER */
-    #preloader{position:fixed;inset:0;z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#8e0e00,#e52d27);color:#fff}
-    #preloader img{height:150px;margin-bottom:18px}
-    #preloader h2{margin:0;font-size:22px;letter-spacing:.5px}
+#preloader{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+  transition:opacity .4s ease;
+  overflow:hidden;
+}
+#preloader img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain; /* NO CROPPING */
+}
+#preloader::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.25); /* subtle overlay for contrast */
+}
 
     /* HEADER */
-    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(135deg,#8e0e00,#e52d27);color:#fff;position:relative}
-    header img.logo{height:60px}
-    header img.mascot{height:90px}
+    header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:28px 36px;background:#b32017;color:#fff;position:relative;text-align:center}
+    header img.logo{height:70px;justify-self:start}
+    header img.mascot{height:90px;justify-self:end}
     header .title{text-align:center;flex:1}
-    header h1{margin:0;font-size:30px;font-weight:800}
+    header h1{margin:0;font-size:42px;font-weight:900;letter-spacing:1px}
     .event-highlight{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:#fff;color:#b31217;padding:8px 24px;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.25);white-space:nowrap}
 
     /* FILTER */
@@ -56,25 +77,56 @@
     .btn.map{background:linear-gradient(135deg,#36d1dc,#5b86e5)}
     .btn.download{background:linear-gradient(135deg,#11998e,#38ef7d)}
     .close{position:absolute;top:16px;right:20px;font-size:28px;cursor:pointer;color:#aaa}
-  </style>
+    .sub-title{font-size:26px;font-weight:900;margin-top:6px;letter-spacing:1px}
+  .date-line{font-size:22px;font-weight:800;margin-top:4px}
+
+  /* CEREMONY FIX */
+  .ceremony{margin:40px auto 10px;padding:0 24px}
+  .ceremony-box{max-width:1200px;margin:0 auto;background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.15);text-align:center}
+  .ceremony-title{font-size:24px;font-weight:900;color:#b31217;margin-bottom:10px}
+  .ceremony-location,.ceremony-date{font-size:18px;font-weight:700;margin:6px 0}
+        
+  /* COMING SOON (DISABLED DOWNLOAD) */
+  .btn.disabled{
+  background:linear-gradient(135deg,#9e9e9e,#cfcfcf);
+  cursor:not-allowed;
+  pointer-events:none;
+  opacity:0.8;
+}
+
+</style>
 </head>
 <body>
 
 <!-- PRELOADER -->
 <div id="preloader">
-  <img src="https://raw.githubusercontent.com/ClouckOfficial/mastersgames/refs/heads/main/Data/Mascot.png" alt="Mascot" />
-  <h2>Welcome to National Masters Games</h2>
+  <img src="data/poster.jpeg" alt="Event Poster" loading="eager" />
 </div>
 
 <!-- HEADER -->
 <header>
-  <img src="https://raw.githubusercontent.com/ClouckOfficial/mastersgames/refs/heads/main/Data/SMGSF%20LOGO.png" class="logo" />
+  <img src="data/SMGSFLOGO.png" class="logo" alt="Logo Left" />
   <div class="title">
-    <h1>8th National Masters Games</h1>
+    <h1 class="main-title" style="font-size:24px;font-weight:900;letter-spacing:2px;line-height:1.1;">8TH NATIONAL<br></h1><h2 style="font-size:16px;font-weight:900;letter-spacing:2px;line-height:1.1;">MASTERS GAMES 2026</h2>
   </div>
-  <img src="https://raw.githubusercontent.com/ClouckOfficial/mastersgames/refs/heads/main/Data/Mascot.png" class="mascot" />
-  <div class="event-highlight">27–31 January 2026 • Pimpri–Chinchwad, Pune</div>
+  <img src="data/Mascot.png" class="mascot" alt="Mascot Right" />
+  <div class="event-highlight" style="grid-column:1 / -1;margin-top:18px;font-size:13.5px;">27–31 January 2026 • Pimpri–Chinchwad, Pune</div>
 </header>
+
+<!-- REPORTING & OPENING CEREMONY -->
+<section class="ceremony">
+  <div class="ceremony-box" style="background:linear-gradient(135deg,#ff512f,#dd2476);color:#fff;">
+    <div class="ceremony-title" style="color:#fff;">REPORTING & OPENING CEREMONY</div>
+    <div class="ceremony-location"><i class="fa-solid fa-location-dot"></i> Hegdewar Krida Shankul, Near Masulkar Colony, Pimpri</div>
+    <div class="ceremony-date"><i class="fa-regular fa-calendar"></i> 27th January 2026</div>
+    <div class="ceremony-time"><i class="fa-regular fa-clock"></i> Reporting: <strong>10:00 A.M.</strong> | Opening Ceremony: <strong>04:00 P.M.Onward</strong></div>
+    <div class="ceremony-note">Chest Numbers & ID Cards will be issued on Reporting day. All participants are mandatory to join the March Past.</div>
+    <div class="actions" style="margin-top:18px;">
+      <a class="btn map" href="https://maps.app.goo.gl/mDyihohkB6UuzVc8A" target="_blank"><i class="fa-solid fa-map"></i> Navigate</a>
+      <a class="btn download" href="#" onclick="addToCalendar()"><i class="fa-solid fa-calendar-plus"></i> Add to Calendar</a>
+    </div>
+  </div>
+</section>
 
 <!-- FILTERS -->
 <div class="filters">
@@ -100,14 +152,14 @@
     <div class="detail"><i class="fa-solid fa-location-dot"></i><span id="pl"></span></div>
     <div class="actions">
       <a class="btn map" id="mapBtn" target="_blank"><i class="fa-solid fa-map"></i> Navigate</a>
-      <a class="btn download" href="Updated PCMC Venues List.pdf" target="_blank"><i class="fa-solid fa-download"></i> Circular</a>
+      <a class="btn download" id="pdfBtn" target="_blank"><i class="fa-solid fa-download"></i> Circular</a>
     </div>
   </div>
 </div>
 
 <script>
   const sports = [
-    {n:'Football',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-futbol',g:'g1'},
+    {n:'Football',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.app.goo.gl/mDyihohkB6UuzVc8A',i:'fa-futbol',g:'g1'},
     {n:'Kabaddi',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-people-group',g:'g2'},
     {n:'Arm Wrestling',d:'28–30 Jan 2026',day:['28','29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-hand-fist',g:'g3'},
     {n:'Judo',d:'29–30 Jan 2026',day:['29','30'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-user-ninja',g:'g4'},
@@ -116,33 +168,36 @@
     {n:'Weightlifting',d:'28–29 Jan 2026',day:['28','29'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-dumbbell',g:'g7'},
     {n:'Chess',d:'28–29 Jan 2026',day:['28','29'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-chess',g:'g1'},
     {n:'Powerlifting',d:'30–31 Jan 2026',day:['30','31'],v:'Hegdewar Krida Shankul, Pimpri',m:'https://maps.google.com/?q=Hegdewar+Krida+Shankul+Pimpri',i:'fa-dumbbell',g:'g2'},
-    {n:'Basketball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sector-9 Spine, Pimpri-Chinchwad',m:'https://maps.google.com/?q=Sector+9+Spine+Pimpri+Chinchwad',i:'fa-basketball',g:'g3'},
-    {n:'Athletics',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-person-running',g:'g4'},
+    {n:'Basketball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sector-9 Spine, Pimpri-Chinchwad',m:'https://maps.app.goo.gl/L5vXZy5B9PnDE41T7',i:'fa-basketball',g:'g3'},
+    {n:'Athletics',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.app.goo.gl/7DkU2ffy2azPbhkE8',pdf:'data/FinalAthleticScheduleNMG-26.pdf',i:'fa-person-running',g:'g4'},
     {n:'Tennis',d:'28–29 Jan 2026',day:['28','29'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-table-tennis-paddle-ball',g:'g5'},
     {n:'Volleyball',d:'28–30 Jan 2026',day:['28','29','30'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-volleyball',g:'g6'},
-    {n:'Yoga',d:'29–30 Jan 2026',day:['29','30'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',i:'fa-person-praying',g:'g7'},
-    {n:'Swimming',d:'28–29 Jan 2026',day:['28','29'],v:'Anna Sahib Magar Stadium, Pimpri',m:'https://maps.google.com/?q=Anna+Sahib+Magar+Stadium+Pimpri',i:'fa-person-swimming',g:'g1'},
-    {n:'Handball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Tanaji Langde Krida Shankul, Kasarwadi',m:'https://maps.google.com/?q=Tanaji+Langde+Krida+Shankul+Kasarwadi',i:'fa-circle-dot',g:'g2'},
-    {n:'Tennis Ball Cricket',d:'29–30 Jan 2026',day:['29','30'],v:'Madanlal Dhingra Cricket Ground, Nigdi',m:'https://maps.google.com/?q=Madanlal+Dhingra+Cricket+Ground+Nigdi',i:'fa-baseball',g:'g3'},
-    {n:'Hockey',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Major Dhyan Chand Hockey Polygrass Ground, Pimpri',m:'https://maps.google.com/?q=Major+Dhyan+Chand+Hockey+Ground+Pimpri',i:'fa-hockey-puck',g:'g4'},
-    {n:'Archery',d:'29–30 Jan 2026',day:['29','30'],v:'PCMC Archery Academy, Chinchwad',m:'https://maps.google.com/?q=Pimpri+Chinchwad+Archery+Academy',i:'fa-bullseye',g:'g5'},
-    {n:'Shooting',d:'29–30 Jan 2026',day:['29','30'],v:'Rifle Shooting Centre, Chikhli',m:'https://maps.google.com/?q=Rifle+Shooting+Centre+Chikhli',i:'fa-crosshairs',g:'g6'},
+    {n:'Yoga',d:'29–30 Jan 2026',day:['29','30'],v:'Sant Dnyaneshwar Sports Complex, Bhosari',m:'https://maps.google.com/?q=Sant+Dnyaneshwar+Sports+Complex+Bhosari',pdf:'data/YOGANMG2026.pdf',i:'fa-person-praying',g:'g7'},
+    {n:'Swimming',d:'28–29 Jan 2026',day:['28','29'],v:'Anna Sahib Magar Stadium, Pimpri',m:'https://maps.app.goo.gl/QAVGh9WETqhfcrVB7',pdf:'data/SwimmingScheduleNMG-26.pdf',i:'fa-person-swimming',g:'g1'},
+    {n:'Handball',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Tanaji Langde Krida Shankul, Kasarwadi',m:'https://maps.app.goo.gl/BMNNYcQBAMrNTa12A',i:'fa-circle-dot',g:'g2'},
+    {n:'Tennis Ball Cricket',d:'29–30 Jan 2026',day:['29','30'],v:'Madanlal Dhingra Cricket Ground, Nigdi',m:'https://maps.app.goo.gl/mG5LArRg1BXcBhYM8',i:'fa-baseball',g:'g3'},
+    {n:'Hockey',d:'28–31 Jan 2026',day:['28','29','30','31'],v:'Major Dhyan Chand Hockey Polygrass Ground, Pimpri',m:'https://maps.app.goo.gl/8uaFFfYwriNCzdJP9',i:'fa-hockey-puck',g:'g4'},
+    {n:'Archery',d:'29–30 Jan 2026',day:['29','30'],v:'PCMC Archery Academy, Chinchwad',m:'https://maps.app.goo.gl/ujB8x3q6V45Kuvh28',i:'fa-bullseye',g:'g5'},
+    {n:'Shooting',d:'29–30 Jan 2026',day:['29','30'],v:'Rifle Shooting Centre, Chikhli',m:'https://maps.app.goo.gl/EHz5CnR9bkFCNjQG8',i:'fa-crosshairs',g:'g6'},
     {n:'Table Tennis',d:'28–29 Jan 2026',day:['28','29'],v:'Vedant Sports Academy, Tathawade',m:'https://maps.google.com/?q=Vedant+Sports+Academy+Tathawade',i:'fa-table-tennis-paddle-ball',g:'g7'},
-    {n:'Badminton',d:'28–29 Jan 2026',day:['28','29'],v:'Vedant Sports Academy, Tathawade',m:'https://maps.google.com/?q=Vedant+Sports+Academy+Tathawade',i:'fa-feather',g:'g1'}
+    {n:'Badminton',d:'28–29 Jan 2026',day:['28','29'],v:'Vedant Sports Academy, Tathawade',m:'https://maps.app.goo.gl/cqBA4Q28TwA2YmXSA',i:'fa-feather',g:'g1'}
   ];
 
   const grid = document.getElementById('grid');
+  let currentList = [];
 
   function render(list){
     if(!grid) return;
+    currentList = list;
     grid.innerHTML = '';
     list.forEach((s, i) => {
-      grid.innerHTML += `<div class="sport ${s.g}" onclick="openPByIndex(${i})"><i class="fa-solid ${s.i}"></i><span>${s.n}</span></div>`;
+      grid.innerHTML += `<div class="sport ${s.g}" onclick="openPFromCurrent(${i})"><i class="fa-solid ${s.i}"></i><span>${s.n}</span></div>`;
     });
   }
 
-  function openPByIndex(i){
-    const s = sports[i];
+  function openPFromCurrent(i){
+
+    const s = currentList[i];
     if(!s) return;
     document.getElementById('pt').innerText = s.n;
     document.getElementById('pd').innerText = s.d;
@@ -175,8 +230,48 @@
     setTimeout(hidePreloader, 800);
   });
 
-  setTimeout(hidePreloader, 3000);
+  setTimeout(hidePreloader, 2000);
+
+  function addToCalendar(){
+    const start='20260127T090000';
+    const end='20260127T120000';
+    const title='Opening Ceremony – 8th National Masters Games';
+    const location='Balewadi Stadium, Pune';
+    const url=`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&location=${encodeURIComponent(location)}`;
+    window.open(url,'_blank');
+  }
+   
+</script>
+<script>
+  function openPFromCurrent(i){
+
+    const s = currentList[i];
+    if(!s) return;
+
+    document.getElementById('pt').innerText = s.n;
+    document.getElementById('pd').innerText = s.d;
+    document.getElementById('pl').innerText = s.v;
+    document.getElementById('pi').className = 'fa-solid ' + s.i;
+    document.getElementById('mapBtn').href = s.m;
+
+    const pdfBtn = document.getElementById('pdfBtn');
+
+    if(s.pdf){
+      pdfBtn.href = s.pdf;
+      pdfBtn.innerHTML = `<i class="fa-solid fa-download"></i> Circular`;
+      pdfBtn.classList.remove('disabled');
+      pdfBtn.setAttribute('target','_blank');
+    }else{
+      pdfBtn.href = '#';
+      pdfBtn.innerHTML = `<i class="fa-regular fa-clock"></i> Coming Soon`;
+      pdfBtn.classList.add('disabled');
+      pdfBtn.removeAttribute('target');
+    }
+
+    document.getElementById('popup').style.display = 'flex';
+  }
 </script>
 
+  
 </body>
 </html>
